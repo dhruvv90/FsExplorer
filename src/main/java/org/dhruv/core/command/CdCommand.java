@@ -1,35 +1,23 @@
 package org.dhruv.core.command;
 
-import org.dhruv.core.entities.FileSystem;
 import org.dhruv.exception.InvalidInputsException;
 
-public class CdCommand implements Command {
-    private final FileSystem fs;
-    private String dirName;
-    private boolean forRoot;
+import java.util.List;
 
-    public CdCommand(FileSystem fs){
-        this.fs  = fs;
-        this.forRoot = true;
-    }
-
-    public CdCommand(FileSystem fs, String dirName){
-        this(fs);
-        this.forRoot = false;
-        this.dirName = dirName;
-    }
-
+public class CdCommand extends BaseCommand {
 
     @Override
-    public void execute() throws InvalidInputsException {
-        if(this.forRoot){
+    public void validateAndExecute(List<String> tokens) throws InvalidInputsException {
+        if (tokens.size() > 2) {
+            throw new InvalidInputsException(INVALID_INPUTS_EXCEPTION_MSG);
+        }
+
+        if (tokens.size() == 1) {
             this.fs.navigateToRoot();
-        }
-        else if(this.dirName.equals("..")){
+        } else if (tokens.get(1).equals("..")) {
             this.fs.navigateUp();
-        }
-        else{
-            this.fs.navigateToNamedDirectory(this.dirName);
+        } else {
+            this.fs.navigateToNamedDirectory(tokens.get(1));
         }
     }
 

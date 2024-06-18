@@ -1,10 +1,8 @@
 package org.dhruv.exception;
 
-import lombok.NoArgsConstructor;
-
 public class InvalidInputsException extends FileSystemExplorerException{
     public InvalidInputsException() {
-        super("Invalid Input parameters");
+        super();
     }
 
     public InvalidInputsException(String message) {

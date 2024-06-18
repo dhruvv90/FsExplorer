@@ -1,24 +1,19 @@
 package org.dhruv.core.command;
 
-import org.dhruv.core.entities.FileSystem;
 import org.dhruv.core.entities.FsItem;
+import org.dhruv.exception.InvalidInputsException;
 
 import java.util.List;
 
-public class LsCommand implements Command {
-
-    private FileSystem fs;
-
-    public LsCommand(FileSystem fs){
-        this.fs = fs;
-    }
+public class LsCommand extends BaseCommand {
 
     @Override
-    public void execute() {
-        List<FsItem> items = fs.getContents();
-        for(FsItem i: items){
+    public void validateAndExecute(List<String> tokens) throws InvalidInputsException {
+        if (tokens.size() != 1) {
+            throw new InvalidInputsException(INVALID_INPUTS_EXCEPTION_MSG);
+        }
+        for(FsItem i: fs.getContents()){
             System.out.println(i.getName());
         }
     }
-
 }

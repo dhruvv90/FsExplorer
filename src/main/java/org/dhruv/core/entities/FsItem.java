@@ -8,7 +8,7 @@ abstract public class FsItem {
 
     private final FsItemMetadata metadata;
     private final boolean isDirectory;
-    private String name;
+    private final String name;
     @Setter
     private Directory parent;
 

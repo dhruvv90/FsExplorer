@@ -1,8 +1,8 @@
 package org.dhruv.core;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 
+@Getter
 public enum CommandType {
     MKDIR( "Create a directory"),
     CD( "Navigate to a directory"),
@@ -12,11 +12,10 @@ public enum CommandType {
     LL( "Show contents"),
     HELP( "get help"),
     TOUCH("create a text file"),
-    HISTORY("See command history")
-
+    HISTORY("See command history"),
+    INVALID("Invalid Command !")
     ;
 
-    @Getter(AccessLevel.PRIVATE)
     private final String helpText;
 
     CommandType(String helpText) {
@@ -27,11 +26,7 @@ public enum CommandType {
         try {
             return CommandType.valueOf(cmd.toUpperCase());
         } catch (IllegalArgumentException e) {
-            return null;
+            return CommandType.INVALID;
         }
-    }
-
-    public static String getHelpText(CommandType cmdType){
-        return cmdType.getHelpText();
     }
 }

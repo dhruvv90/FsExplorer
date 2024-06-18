@@ -9,25 +9,23 @@ import java.util.Scanner;
 public class Application {
 
     private final Scanner scanner;
-
-    private final CommandParser cmdParser;
+    private final CommandParser parser;
     private final FileSystem fs;
 
     Application(String... args) {
         System.out.println("Welcome to the File System Explorer !");
 
-        this.fs = FileSystem.buildOrGet();
-        cmdParser = new CommandParser(fs);
+        fs = FileSystem.buildOrGet();
+        parser = new CommandParser();
         scanner = new Scanner(System.in);
     }
 
     public void run() {
-        boolean toContinue = true;
-        while (toContinue) {
+        while (parser.isActive()) {
             try {
                 System.out.print(fs.getCurrentPath() + "$> ");
                 String input = scanner.nextLine();
-                toContinue = cmdParser.parse(input);
+                parser.parse(input);
             } catch (FileSystemExplorerException e) {
                 System.out.println(e.getMessage());
             }

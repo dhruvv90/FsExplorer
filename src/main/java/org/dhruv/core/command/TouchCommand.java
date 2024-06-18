@@ -1,25 +1,20 @@
 package org.dhruv.core.command;
 
-import org.dhruv.core.entities.FileSystem;
 import org.dhruv.exception.InvalidInputsException;
 
-public class TouchCommand implements Command {
-    private final FileSystem fs;
-    private final String fileName;
+import java.util.List;
 
-    public TouchCommand(FileSystem fs, String fileName) throws InvalidInputsException {
-        String[] tokens = fileName.split("\\.");
-        if (tokens.length < 2) {
-            throw new InvalidInputsException();
-        }
-
-        this.fs = fs;
-        this.fileName = fileName;
-    }
+public class TouchCommand extends BaseCommand {
 
     @Override
-    public void execute() throws InvalidInputsException {
-        this.fs.createFile(this.fileName);
+    public void validateAndExecute(List<String> tokens) throws InvalidInputsException {
+        if (tokens.size() != 2) {
+            throw new InvalidInputsException(INVALID_INPUTS_EXCEPTION_MSG);
+        }
+        String fileName = tokens.get(1);
+        if(fileName.indexOf('.') == -1){
+            throw new InvalidInputsException(INVALID_INPUTS_EXCEPTION_MSG);
+        }
+        this.fs.createFile(fileName);
     }
-
 }

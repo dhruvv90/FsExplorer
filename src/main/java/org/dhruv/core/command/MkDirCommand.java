@@ -1,21 +1,17 @@
 package org.dhruv.core.command;
 
-import org.dhruv.core.entities.FileSystem;
 import org.dhruv.exception.InvalidInputsException;
 
-public class MkDirCommand implements Command {
+import java.util.List;
 
-    private final FileSystem fs;
-    private final String name;
-
-    public MkDirCommand(FileSystem fs, String name) {
-        this.fs = fs;
-        this.name = name;
-    }
+public class MkDirCommand extends BaseCommand {
 
     @Override
-    public void execute() throws InvalidInputsException {
-        fs.createDirectory(name);
+    public void validateAndExecute(List<String> tokens) throws InvalidInputsException {
+        if (tokens.size() != 2) {
+            throw new InvalidInputsException(INVALID_INPUTS_EXCEPTION_MSG);
+        }
+        fs.createDirectory(tokens.get(1));
     }
 
 }

@@ -1,20 +1,17 @@
 package org.dhruv.core.command;
 
-import org.dhruv.core.entities.FileSystem;
 import org.dhruv.exception.InvalidInputsException;
 
-public class RmCommand implements Command{
-    private final FileSystem fs;
-    private final String itemName;
+import java.util.List;
 
-    public RmCommand(FileSystem fs, String itemName){
-        this.fs = fs;
-        this.itemName =itemName;
-    }
+public class RmCommand extends BaseCommand {
 
     @Override
-    public void execute() throws InvalidInputsException {
-        this.fs.deleteItem(this.itemName);
+    public void validateAndExecute(List<String> tokens) throws InvalidInputsException {
+        if (tokens.size() != 2) {
+            throw new InvalidInputsException(INVALID_INPUTS_EXCEPTION_MSG);
+        }
+        this.fs.deleteItem(tokens.get(1));
     }
 
 }

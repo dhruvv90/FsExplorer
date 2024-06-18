@@ -2,8 +2,10 @@ package org.dhruv.core.command;
 
 import org.dhruv.exception.InvalidInputsException;
 
+import java.util.List;
+
 public interface Command {
 
-    void execute() throws InvalidInputsException;
+    void validateAndExecute(List<String> tokens) throws InvalidInputsException;
 
 }

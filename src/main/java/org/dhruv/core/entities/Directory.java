@@ -5,12 +5,10 @@ import lombok.Getter;
 import java.util.LinkedList;
 import java.util.List;
 
+@Getter
 public class Directory extends FsItem {
 
-    @Getter
     private final List<FsItem> items;
-
-    @Getter
     private final String absolutePath;
 
     Directory() {
